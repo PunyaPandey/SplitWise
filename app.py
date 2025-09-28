@@ -5,7 +5,6 @@ import os
 from storage import (
     list_users,
     add_user as storage_add_user,
-    list_expenses,
     add_expense_record,
     compute_balances,
 )
@@ -27,6 +26,9 @@ def add_expense():
         split_type = request.form['split_type']
 
         try:
+            if amount <= 0:
+                raise ValueError('Amount must be greater than 0.')
+
             users = list_users()
             if not users:
                 raise ValueError('No users found. Add users first.')
@@ -75,7 +77,7 @@ def add_expense():
                     total_others += share_amt
                     if share_amt > 0:
                         shares.append({'user_id': u['id'], 'amount': share_amt})
-                if abs(total_percent - 100.0) > 0.5 and total_percent > 100.0:
+                if total_percent > 100.1:
                     raise ValueError('Total percentage exceeds 100%.')
                 payer_share = round(amount - total_others, 2)
                 if payer_share < -1e-6:
@@ -119,6 +121,8 @@ def add_user():
         email = request.form['email']
         password = request.form['password']  # In production, hash this password
         try:
+            if len(password) < 6:
+                raise ValueError('Password must be at least 6 characters long.')
             storage_add_user(name=name, email=email, password=password)
             flash('User added successfully!', 'success')
             return redirect(url_for('index'))
@@ -131,3 +135,4 @@ def add_user():
 if __name__ == '__main__':
     port = int(os.environ.get('PORT', 5000))
     app.run(host='0.0.0.0', port=port)
+

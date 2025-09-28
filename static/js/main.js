@@ -8,10 +8,16 @@ document.addEventListener('DOMContentLoaded', function() {
     // Handle split type changes
     const splitTypeSelect = document.getElementById('split_type');
     const splitDetails = document.getElementById('split-details');
+    const paidBySelect = document.getElementById('paid_by');
     
     if (splitTypeSelect && splitDetails) {
         splitTypeSelect.addEventListener('change', updateSplitDetails);
         updateSplitDetails(); // Initialize on page load
+    }
+
+    // Update split details when payer changes so payer is excluded from inputs
+    if (paidBySelect) {
+        paidBySelect.addEventListener('change', updateSplitDetails);
     }
 
     function updateSplitDetails() {

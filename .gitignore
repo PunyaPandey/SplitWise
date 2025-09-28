@@ -1,0 +1,36 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual environments
+.venv/
+venv/
+ENV/
+
+# OS files
+.DS_Store
+
+# IDE/project files
+.vscode/
+.idea/
+
+# Flask instance folder (not used in this project for config, but ignore any local files)
+instance/
+
+# Local databases
+*.db
+
+# Logs
+*.log
+
+# Python tooling
+.pytest_cache/
+.mypy_cache/
+
+# Node/bundler caches (if any)
+node_modules/
+
+# Local environment files
+.env
+.env.*
