@@ -1,0 +1,60 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-8 offset-md-2">
+        <h2>Balances</h2>
+        
+        <div class="card mb-4">
+            <div class="card-header">
+                <h5 class="mb-0">Your Balances</h5>
+            </div>
+            <div class="card-body">
+                <div class="list-group">
+                    {% for user, balance in user_balances %}
+                        <div class="list-group-item d-flex justify-content-between align-items-center">
+                            <div>
+                                <h6 class="mb-1">{{ user.name }}</h6>
+                                <small class="text-muted">{{ user.email }}</small>
+                            </div>
+                            <span class="badge {% if balance > 0 %}bg-success{% elif balance < 0 %}bg-danger{% else %}bg-secondary{% endif %} rounded-pill">
+                                {% if balance > 0 %}
+                                    Owes you ${{ "%.2f"|format(balance) }}
+                                {% elif balance < 0 %}
+                                    You owe ${{ "%.2f"|format(-balance) }}
+                                {% else %}
+                                    Settled up
+                                {% endif %}
+                            </span>
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        
+        <div class="card">
+            <div class="card-header">
+                <h5 class="mb-0">Simplified Balances</h5>
+            </div>
+            <div class="card-body">
+                <p class="text-muted">Simplified to minimize transactions:</p>
+                <ul class="list-group">
+                    {% if user_balances|length <= 1 %}
+                        <li class="list-group-item">No balances to show. Add some expenses with friends!</li>
+                    {% else %}
+                        <!-- Simplified balances will be calculated and displayed here -->
+                        <li class="list-group-item">Simplified transactions will be shown here</li>
+                    {% endif %}
+                </ul>
+            </div>
+        </div>
+        
+        <div class="mt-4">
+            <a href="{{ url_for('add_expense') }}" class="btn btn-primary">
+                <i class="bi bi-plus-circle"></i> Add New Expense
+            </a>
+            <a href="{{ url_for('index') }}" class="btn btn-secondary">Back to Home</a>
+        </div>
+    </div>
+</div>
+{% endblock %}

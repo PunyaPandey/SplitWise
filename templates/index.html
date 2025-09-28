@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="jumbotron text-center">
+    <h1 class="display-4">Welcome to SplitWise Clone</h1>
+    <p class="lead">Easily split expenses with your friends and family.</p>
+    <hr class="my-4">
+    <p>Get started by adding an expense or checking your balances.</p>
+    <div class="mt-4">
+        <a class="btn btn-primary btn-lg mx-2" href="{{ url_for('add_expense') }}" role="button">Add an Expense</a>
+        <a class="btn btn-outline-primary btn-lg mx-2" href="{{ url_for('view_balances') }}" role="button">View Balances</a>
+    </div>
+</div>
+
+<div class="row mt-5">
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-primary text-white">
+                <h5 class="mb-0">Recent Activity</h5>
+            </div>
+            <div class="card-body">
+                <p class="card-text">No recent activity. Add an expense to get started!</p>
+                <!-- Recent expenses will be dynamically added here -->
+            </div>
+        </div>
+    </div>
+    
+    <div class="col-md-6">
+        <div class="card">
+            <div class="card-header bg-success text-white">
+                <h5 class="mb-0">Quick Actions</h5>
+            </div>
+            <div class="card-body">
+                <div class="d-grid gap-2">
+                    <a href="{{ url_for('add_expense') }}" class="btn btn-outline-primary">
+                        <i class="bi bi-plus-circle"></i> Add an Expense
+                    </a>
+                    <a href="{{ url_for('add_user') }}" class="btn btn-outline-secondary">
+                        <i class="bi bi-person-plus"></i> Add a Friend
+                    </a>
+                    <a href="{{ url_for('view_balances') }}" class="btn btn-outline-info">
+                        <i class="bi bi-cash-stack"></i> View Balances
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
